@@ -78,12 +78,11 @@ repositories {
 }
 
 dependencies {
-    implementation(enforcedPlatform('org.springframework.boot:spring-boot-dependencies:3.5.3'))
-    implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.springframework.boot:spring-boot-starter-aop'
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.5.3'
+    implementation 'org.springframework.boot:spring-boot-starter-aop:3.5.3'
     compileOnly 'org.projectlombok:lombok:1.18.32'
     annotationProcessor 'org.projectlombok:lombok:1.18.32'
-    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test:3.5.3'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.10.0'
 }
 
