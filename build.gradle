@@ -76,8 +76,8 @@ signing {
     println("GPG_PASSPHRASE is set? " + (System.getenv("GPG_PASSPHRASE") != null))
 
     useInMemoryPgpKeys(
-        project.findProperty("gpg_private_key") as String,
-        project.findProperty("gpg_passphrase") as String
+        System.getenv("GPG_PRIVATE_KEY"),
+        System.getenv("GPG_PASSPHRASE")
     )
 
     sign publishing.publications.mavenJava
