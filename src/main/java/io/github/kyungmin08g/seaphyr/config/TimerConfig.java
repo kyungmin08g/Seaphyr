@@ -1,4 +1,4 @@
-package io.kyungmin08g.seaphyr.config;
+package io.github.kyungmin08g.seaphyr.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package io.kyungmin08g.seaphyr;
+package io.github.kyungmin08g.seaphyr;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

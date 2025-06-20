@@ -1,13 +1,17 @@
 plugins {
     id 'java-library'
+    id 'maven-publish'
     id 'org.springframework.boot' version '3.5.0'
     id 'io.spring.dependency-management' version '1.1.7'
+    id 'signing'
 }
 
-group = 'io.kyungmin08g'
+group = 'io.github.kyungmin08g'
 version = '0.0.1'
 
 java {
+    withSourcesJar()
+    withJavadocJar()
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
@@ -17,6 +21,56 @@ configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            pom {
+                name = 'Seaphyr'
+                description = 'Spring AOP 어노테이션 기반 로깅 라이브러리'
+                url = 'https://github.com/kyungmin08g/Seaphyr'
+
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://opensource.org/licenses/MIT'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id = 'A805F890501468426D11B27F68907778672A9038'
+                        name = 'KyungMin'
+                        email = 'k.kyungmin2892@gmail.com'
+                    }
+                }
+
+                scm {
+                    connection = 'scm:git:git://github.com/kyungmin08g/Seaphyr.git'
+                    developerConnection = 'scm:git:ssh://github.com/kyungmin08g/Seaphyr.git'
+                    url = 'https://github.com/kyungmin08g/Seaphyr'
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = "OSSRH"
+            url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/")
+            credentials {
+                username = project.findProperty("ossrhUsername")
+                password = project.findProperty("ossrhPassword")
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
 }
 
 repositories {

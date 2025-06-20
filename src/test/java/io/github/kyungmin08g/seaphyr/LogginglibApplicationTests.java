@@ -1,4 +1,4 @@
-package io.kyungmin08g.seaphyr;
+package io.github.kyungmin08g.seaphyr;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

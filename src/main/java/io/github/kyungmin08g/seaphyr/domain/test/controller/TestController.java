@@ -1,7 +1,7 @@
-package io.kyungmin08g.seaphyr.domain.test.controller;
+package io.github.kyungmin08g.seaphyr.domain.test.controller;
 
-import io.kyungmin08g.seaphyr.annotation.LogExecutionTime;
-import io.kyungmin08g.seaphyr.domain.test.service.TestService;
+import io.github.kyungmin08g.seaphyr.annotation.LogExecutionTime;
+import io.github.kyungmin08g.seaphyr.domain.test.service.TestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package io.kyungmin08g.seaphyr.aspect;
+package io.github.kyungmin08g.seaphyr.aspect;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +15,7 @@ import org.springframework.util.StopWatch;
 public class TimerAspect {
   private final StopWatch stopWatch;
 
-  @Around("@annotation(io.kyungmin08g.seaphyr.annotation.LogExecutionTime)")
+  @Around("@annotation(io.github.kyungmin08g.seaphyr.annotation.LogExecutionTime)")
   public Object runTimer(ProceedingJoinPoint joinPoint) {
     stopWatch.start();
     try {

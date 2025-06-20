@@ -1,4 +1,4 @@
-package io.kyungmin08g.seaphyr.annotation;
+package io.github.kyungmin08g.seaphyr.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
