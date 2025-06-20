@@ -22,11 +22,13 @@ jobs:
       - name: Import GPG key
         run: |
           echo "$GPG_PRIVATE_KEY" | gpg --batch --import
+          gpg --list-keys
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Publish to Maven Central
-        run: ./gradlew publish --no-daemon
+        run: ./gradlew publish
         env:
           OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
