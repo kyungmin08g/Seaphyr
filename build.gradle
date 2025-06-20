@@ -70,9 +70,16 @@ publishing {
 }
 
 signing {
+    println("GPG_PRIVATE_KEY is set? " + (project.findProperty("gpg_private_key") != null))
+    println("GPG_PASSPHRASE is set? " + (project.findProperty("gpg_passphrase") != null))
     println("GPG_PRIVATE_KEY is set? " + (System.getenv("GPG_PRIVATE_KEY") != null))
     println("GPG_PASSPHRASE is set? " + (System.getenv("GPG_PASSPHRASE") != null))
-    useInMemoryPgpKeys(System.getenv("GPG_PRIVATE_KEY"), System.getenv("GPG_PASSPHRASE"))
+
+    useInMemoryPgpKeys(
+        project.findProperty("gpg_private_key") as String,
+        project.findProperty("gpg_passphrase") as String
+    )
+
     sign publishing.publications.mavenJava
 }
 
