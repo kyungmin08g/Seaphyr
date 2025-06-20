@@ -7,6 +7,7 @@ on:
 
 jobs:
   publish:
+    name: Publish library
     runs-on: ubuntu-latest
 
     steps:
