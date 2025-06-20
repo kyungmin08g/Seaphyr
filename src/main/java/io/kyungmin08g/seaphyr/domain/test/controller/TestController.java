@@ -1,5 +1,6 @@
 package io.kyungmin08g.seaphyr.domain.test.controller;
 
+import io.kyungmin08g.seaphyr.annotation.LogExecutionTime;
 import io.kyungmin08g.seaphyr.domain.test.service.TestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,9 @@ public class TestController {
   private final TestService testService;
 
   @GetMapping()
-  public ResponseEntity<Void> test() {
+  @LogExecutionTime
+  public ResponseEntity<Void> test() throws InterruptedException {
+    testService.print();
     return ResponseEntity.ok().build();
   }
 }
