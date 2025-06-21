@@ -31,24 +31,56 @@ nexusPublishing {
         sonatype {
             nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
             snapshotRepositoryUrl.set(uri("https://central.sonatype.com/repository/maven-snapshots/"))
-            username = ossrhUsername ?: System.getenv("OSS RH_USERNAME") as String
-            password = ossrhPassword ?: System.getenv("OSSRH_PASSWORD") as String
+            username.set(System.getenv("OSSRH_USERNAME"))
+            password.set(System.getenv("OSSRH_PASSWORD"))
         }
     }
 }
 
 signing {
     println("GPG_PRIVATE_KEY is set? " + (project.findProperty("gpg_private_key") != null))
-    println("GPG_PASSPHRASE is set? " + (project.findProperty("gpg_passphrase") != null))
+    println("GPG_PRIVATE_KEY is set? " + (project.findProperty("gpg_passphrase") != null))
     println("GPG_PRIVATE_KEY is set? " + (System.getenv("GPG_PRIVATE_KEY") != null))
     println("GPG_PASSPHRASE is set? " + (System.getenv("GPG_PASSPHRASE") != null))
 
     useInMemoryPgpKeys(
-        System.getenv("GPG_PRIVATE_KEY"),
-        System.getenv("GPG_PASSPHRASE")
+        project.findProperty("gpg_private_key") as String,
+        project.findProperty("gpg_passphrase") as String
     )
 
 //    sign publishing.publications.mavenJava
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+
+            pom {
+                name = 'Seaphyr'
+                description = 'A Spring-based logging AOP library'
+                url = 'https://github.com/kyungmin08g/Seaphyr'
+                licenses {
+                    license {
+                        name = 'The Apache License, Version 2.0'
+                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'kyungmin08g'
+                        name = 'KyungMin'
+                        email = 'k.kyungmin2892@gmail.com'
+                    }
+                }
+                scm {
+                    connection = 'scm:git:git://github.com/kyungmin08g/Seaphyr.git'
+                    developerConnection = 'scm:git:ssh://github.com/kyungmin08g/Seaphyr.git'
+                    url = 'https://github.com/kyungmin08g/Seaphyr'
+                }
+            }
+        }
+    }
 }
 
 repositories {

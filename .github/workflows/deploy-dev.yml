@@ -28,7 +28,7 @@ jobs:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Publish to Maven Central
-        run: ./gradlew publish --stacktrace
+        run: ./gradlew publishToSonatypeStagingRepository closeAndReleaseSonatypeStagingRepository
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
