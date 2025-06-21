@@ -48,7 +48,7 @@ jobs:
           SIGNING_PASSWORD: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Close and Release
-        run: ./gradlew clean closeAndReleaseSonatypeStagingRepository
+        run: ./gradlew closeAndReleaseSonatypeStagingRepository
         env:
           SONATYPE_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
