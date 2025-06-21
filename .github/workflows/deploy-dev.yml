@@ -36,7 +36,7 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*','**/gradle-wrapper.properties') }}
 
       - name: Publish
-        run: ./gradlew clean publish
+        run: ./gradlew clean publishToSonatype
         env:
           SONATYPE_USERNAME: ${{ secrets.OSSRH_USERNAME }}
           SONATYPE_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
