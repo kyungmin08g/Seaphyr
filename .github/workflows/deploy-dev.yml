@@ -19,6 +19,12 @@ jobs:
           distribution: 'temurin'
           cache: gradle
 
+      - name: Prepare gradle.properties
+        run: |
+          echo "signing.keyId=${{ secrets.GPG_KEY_ID }}" >> $GITHUB_WORKSPACE/gradle.properties
+          echo "signing.password=${{ secrets.GPG_PASSPHRASE }}" >> $GITHUB_WORKSPACE/gradle.properties
+          echo "signing.secretKey=${{ secrets.GPG_PRIVATE_KEY }}" >> $GITHUB_WORKSPACE/gradle.properties
+
       - name: Import GPG key
         run: |
           echo "$GPG_PRIVATE_KEY" | gpg --batch --import
@@ -28,7 +34,7 @@ jobs:
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
 
       - name: Publish to Maven Central
-        run: ./gradlew publish
+        run: ./gradlew publish --no-daemon --stacktrace
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
