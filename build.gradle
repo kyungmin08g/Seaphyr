@@ -65,25 +65,15 @@ nexusPublishing {
     }
 }
 
-def gpgKeyBase64 = project.findProperty("gpg_private_key")
-def gpgKey = ''
-
-if (gpgKeyBase64 != null && !gpgKeyBase64.isEmpty()) {
-    byte[] decodedBytes = Base64.decoder.decode(gpgKeyBase64)
-    gpgKey = new String(decodedBytes, 'UTF-8')
-} else {
-    throw new GradleException("GPG_PRIVATE_KEY is not set or empty")
-}
-
 signing {
-//    println("GPG_PRIVATE_KEY is set? " + (project.findProperty("gpg_private_key") != null))
-//    println("GPG_PASSPHRASE is set? " + (project.findProperty("gpg_passphrase") != null))
+    println("GPG_PRIVATE_KEY is set? " + (project.findProperty("gpg_private_key") != null))
+    println("GPG_PASSPHRASE is set? " + (project.findProperty("gpg_passphrase") != null))
     println("GPG_PRIVATE_KEY is set? " + (System.getenv("GPG_PRIVATE_KEY") != null))
     println("GPG_PASSPHRASE is set? " + (System.getenv("GPG_PASSPHRASE") != null))
 
     useInMemoryPgpKeys(
         System.getenv('SIGNING_KEY_ID'),
-        gpgKey,
+        System.getenv('GPG_PRIVATE_KEY'),
         System.getenv('GPG_PASSPHRASE')
     )
 
