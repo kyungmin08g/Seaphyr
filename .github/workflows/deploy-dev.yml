@@ -18,6 +18,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: gradle
+          server-id: ossrh
+          settings-path: ${{ github.workspace }}
 
       - name: Import GPG key
         run: |
