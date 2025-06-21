@@ -30,9 +30,6 @@ publishing {
         mavenJava(MavenPublication) {
             from components.java
 
-            artifact sourcesJar
-            artifact javadocJar
-
             pom {
                 name = 'Seaphyr'
                 description = 'Spring AOP 기반 로깅 라이브러리'
