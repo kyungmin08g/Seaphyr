@@ -69,20 +69,20 @@ nexusPublishing {
         }
     }
 }
-//
-//signing {
-////    println("GPG_PRIVATE_KEY is set? " + (project.findProperty("gpg_private_key") != null))
-////    println("GPG_PASSPHRASE is set? " + (project.findProperty("gpg_passphrase") != null))
-//    println("GPG_PRIVATE_KEY is set? " + (System.getenv("GPG_PRIVATE_KEY") != null))
-//    println("GPG_PASSPHRASE is set? " + (System.getenv("GPG_PASSPHRASE") != null))
-//
-//    useInMemoryPgpKeys(
-//        System.getenv("GPG_PRIVATE_KEY"),
-//        System.getenv("GPG_PASSPHRASE")
-//    )
-//
-//    sign publishing.publications.mavenJava
-//}
+
+signing {
+//    println("GPG_PRIVATE_KEY is set? " + (project.findProperty("gpg_private_key") != null))
+//    println("GPG_PASSPHRASE is set? " + (project.findProperty("gpg_passphrase") != null))
+    println("GPG_PRIVATE_KEY is set? " + (System.getenv("SONATYPE_USERNAME") != null))
+    println("GPG_PASSPHRASE is set? " + (System.getenv("SONATYPE_PASSWORD") != null))
+
+    useInMemoryPgpKeys(
+        System.getenv("SONATYPE_USERNAME"),
+        System.getenv("SONATYPE_PASSWORD")
+    )
+
+    sign publishing.publications.mavenJava
+}
 
 repositories {
     mavenCentral()
