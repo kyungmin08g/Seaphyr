@@ -1,9 +1,6 @@
-import io.github.gradlenexus.publishplugin.NexusRepository
-
 plugins {
     id 'java-library'
     id 'maven-publish'
-    id 'io.github.gradle-nexus.publish-plugin' version '2.0.0'
     id 'org.springframework.boot' version '3.5.0'
     id 'io.spring.dependency-management' version '1.1.7'
     id 'signing'
@@ -26,31 +23,6 @@ configurations {
     }
 }
 
-nexusPublishing {
-    repositories {
-        sonatype {
-            nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
-            snapshotRepositoryUrl.set(uri("https://central.sonatype.com/repository/maven-snapshots/"))
-            username.set(System.getenv("OSSRH_USERNAME"))
-            password.set(System.getenv("OSSRH_PASSWORD"))
-        }
-    }
-}
-
-signing {
-    println("GPG_PRIVATE_KEY is set? " + (project.findProperty("gpg_private_key") != null))
-    println("GPG_PRIVATE_KEY is set? " + (project.findProperty("gpg_passphrase") != null))
-    println("GPG_PRIVATE_KEY is set? " + (System.getenv("GPG_PRIVATE_KEY") != null))
-    println("GPG_PASSPHRASE is set? " + (System.getenv("GPG_PASSPHRASE") != null))
-
-    useInMemoryPgpKeys(
-        project.findProperty("gpg_private_key") as String,
-        project.findProperty("gpg_passphrase") as String
-    )
-
-//    sign publishing.publications.mavenJava
-}
-
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -58,14 +30,16 @@ publishing {
 
             pom {
                 name = 'Seaphyr'
-                description = 'A Spring-based logging AOP library'
+                description = 'Spring AOP 어노테이션 기반 로깅 라이브러리'
                 url = 'https://github.com/kyungmin08g/Seaphyr'
+
                 licenses {
                     license {
-                        name = 'The Apache License, Version 2.0'
-                        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        name = 'MIT License'
+                        url = 'https://opensource.org/licenses/MIT'
                     }
                 }
+
                 developers {
                     developer {
                         id = 'kyungmin08g'
@@ -73,6 +47,7 @@ publishing {
                         email = 'k.kyungmin2892@gmail.com'
                     }
                 }
+
                 scm {
                     connection = 'scm:git:git://github.com/kyungmin08g/Seaphyr.git'
                     developerConnection = 'scm:git:ssh://github.com/kyungmin08g/Seaphyr.git'
@@ -81,6 +56,31 @@ publishing {
             }
         }
     }
+
+    repositories {
+        maven {
+            name = "central"
+            url = uri("https://ossrh-staging-api.central.sonatype.com/service/local/staging/deploy/maven2/")
+            credentials {
+                username = project.findProperty("ossrhUsername") ?: System.getenv("OSSRH_USERNAME")
+                password = project.findProperty("ossrhPassword") ?: System.getenv("OSSRH_PASSWORD")
+            }
+        }
+    }
+}
+
+signing {
+    println("GPG_PRIVATE_KEY is set? " + (project.findProperty("gpg_private_key") != null))
+    println("GPG_PASSPHRASE is set? " + (project.findProperty("gpg_passphrase") != null))
+    println("GPG_PRIVATE_KEY is set? " + (System.getenv("GPG_PRIVATE_KEY") != null))
+    println("GPG_PASSPHRASE is set? " + (System.getenv("GPG_PASSPHRASE") != null))
+
+    useInMemoryPgpKeys(
+        System.getenv("GPG_PRIVATE_KEY"),
+        System.getenv("GPG_PASSPHRASE")
+    )
+
+    sign publishing.publications.mavenJava
 }
 
 repositories {
